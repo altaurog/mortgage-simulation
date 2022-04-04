@@ -1,22 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createStore } from 'redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 
 import * as d3 from 'd3';
 
 const owidth = 800;
 const oheight = 300;
+const initialState = [
+  {id: 0, x: 20, y: 50},
+  {id: 1, x: 700, y: 250},
+];
+const store = createStore(points, initialState);
 
 const container = document.createElement('div');
 document.body.append(container);
 const root = ReactDOM.createRoot(container);
-root.render(<Drag/>);
+root.render(
+  <Provider store={store}>
+    <Drag/>
+  </Provider>
+);
+
+function points(state, action) {
+  switch (action.type) {
+    case 'point/drag':
+      const point = action.payload;
+      return state.map(p => p.id === point.id ? point : p);
+    default:
+      return state;
+  }
+}
 
 function Drag() {
+  const points = useSelector(state => state);
+  const dispatch = useDispatch();
   const svgRef = React.useRef(null);
-  const [points, setPoints] = React.useState([
-    {id: 0, x: 20, y: 50},
-    {id: 1, x: 700, y: 250},
-  ]);
 
   function dragDrag(event, d) {
     const point = {
@@ -24,8 +43,7 @@ function Drag() {
       x: event.x,
       y: event.y,
     };
-    const newPoints = points.map(p => p.id === point.id ? point : p);
-    setPoints(newPoints);
+    dispatch({type: 'point/drag', payload: point});
   }
 
   function update(el) {
