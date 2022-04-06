@@ -6,13 +6,13 @@ import App from './App';
 import ir from './ir';
 import store from './store';
 
-const container = document.createElement('div');
-document.body.append(container)
-const root = ReactDOM.createRoot(container);
+const reactContainer = document.getElementById('form');
+const root = ReactDOM.createRoot(reactContainer);
 root.render(
   <Provider store={store}>
     <App/>
   </Provider>
 );
 
-ir(store);
+const d3Container = document.getElementById('chart');
+ir(store, d3Container);

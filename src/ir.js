@@ -3,11 +3,11 @@ import * as d3 from 'd3';
 const owidth = 800;
 const oheight = 300;
 
-export default function ir(store) {
-  const svg = d3.select('body')
+export default function ir(store, element) {
+  const svg = d3.select(element)
     .append('svg')
-    .attr('width', owidth)
-    .attr('height', oheight)
+    .attr('width', "100%")
+    .attr('height', "100%")
     .attr('viewBox', `0 0 ${owidth} ${oheight}`);
 
   const ir = () => render(store, svg);
