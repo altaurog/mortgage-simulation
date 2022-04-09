@@ -47,7 +47,7 @@ export default function ir(store, element) {
 
   function dragDrag() {
     return (event, d) => {
-      const x = Math.max(0, Math.min(event.x, scale.width));
+      const x = pin(d, Math.max(0, Math.min(event.x, scale.width)));
       const y = Math.max(0, Math.min(event.y, scale.height));
       const point = scale.viewPt(d.id, {x, y});
       store.dispatch({type: 'point/drag', payload: point});
@@ -59,4 +59,11 @@ export default function ir(store, element) {
   ir()
     .call(d3.drag()
     .on("drag", dragDrag(store)));
+}
+
+function pin(d, x) {
+  if ([0, 1].includes(d.id)) {
+    return d.viewX;
+  }
+  return x;
 }
