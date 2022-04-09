@@ -1,8 +1,9 @@
 import { createStore } from 'redux';
+import * as scale from './scale';
 
 const initialState = [
-  {id: 0, x: 10, y: 10},
-  {id: 1, x: 20, y: 20},
+  {id: 0, x: scale.x(0), y: scale.y(1.6)},
+  {id: 1, x: scale.x(30), y: scale.y(5.5)},
 ];
 
 function points(state, action) {
