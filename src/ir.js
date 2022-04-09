@@ -7,6 +7,19 @@ function render(store, svg) {
 }
 
 function update(svg, points) {
+  const data = Array.from(points);
+  data.sort((a, b) => a.viewX - b.viewX);
+  const line = d3.line(d => d.viewX, d => d.viewY)
+    .curve(d3.curveMonotoneX);
+
+  svg.selectAll("path")
+    .data([data])
+    .join("path")
+    .attr("d", line)
+    .attr("fill", "none")
+    .attr("stroke", "black")
+  ;
+
   return svg.selectAll("circle")
     .data(points, d => d.id)
     .join("circle")
@@ -24,6 +37,8 @@ export default function ir(store, element) {
     .attr('viewBox', scale.viewBox)
   ;
 
+  const plot = svg.append('g').attr('id', 'plot');
+
   svg.append('g')
     .attr('transform', `translate(0,${scale.height})`)
     .call(d3.axisBottom(scale.x));
@@ -39,7 +54,7 @@ export default function ir(store, element) {
     }
   }
 
-  const ir = () => render(store, svg);
+  const ir = () => render(store, plot);
   store.subscribe(ir);
   ir()
     .call(d3.drag()
