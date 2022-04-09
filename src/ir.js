@@ -11,8 +11,8 @@ function update(svg, points) {
     .data(points, d => d.id)
     .join("circle")
     .attr("r", 5)
-    .attr("cx", d => d.x)
-    .attr("cy", d => d.y);
+    .attr("cx", d => d.viewX)
+    .attr("cy", d => d.viewY);
 }
 
 export default function ir(store, element) {
@@ -34,11 +34,7 @@ export default function ir(store, element) {
     return (event, d) => {
       const x = Math.max(0, Math.min(event.x, scale.width));
       const y = Math.max(0, Math.min(event.y, scale.height));
-      const point = {
-        id: d.id,
-        x,
-        y,
-      };
+      const point = scale.viewPt(d.id, {x, y});
       store.dispatch({type: 'point/drag', payload: point});
     }
   }

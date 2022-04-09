@@ -28,10 +28,10 @@ function Point({ point }) {
   return (
     <tr>
       <td>{point.id}</td>
-      <td>{point.sx?.toFixed(2)}</td>
-      <td>{point.sy?.toFixed(2)}</td>
       <td>{point.x?.toFixed(2)}</td>
       <td>{point.y?.toFixed(2)}</td>
+      <td>{point.viewX?.toFixed(2)}</td>
+      <td>{point.viewY?.toFixed(2)}</td>
     </tr>
   );
 }

@@ -29,8 +29,8 @@ export function pt(id, r) {
     id,
     viewX: x(r.x),
     viewY: y(r.y),
-    x: r.x,
-    y: r.y,
+    // x: r.x,
+    // y: r.y,
   }
 }
 
@@ -39,7 +39,7 @@ export function viewPt(id, v) {
     id,
     viewX: v.x,
     viewY: v.y,
-    x: x.invert(v.x),
-    y: y.invert(v.y),
+    // x: x.invert(v.x),
+    // y: y.invert(v.y),
   }
 }
