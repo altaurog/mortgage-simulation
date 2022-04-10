@@ -17,22 +17,7 @@ function update(svg, { points, selection }) {
     .join("path")
     .attr("d", line)
     .attr("fill", "none")
-    .attr("stroke", "black")
-  ;
-
-  const ix = d3.range(1, 30).map(scale.x)
-  const iy = interpolate(points, ix);
-  const interp = ix.map((v, i) => [v, iy[i]]);
-  svg.selectAll("circle.interp")
-    .data(interp)
-    .join("circle")
-    .attr("class", "interp")
-    .attr("r", 2)
-    .attr("stroke", "black")
-    .attr("stroke-width", 0.5)
-    .attr("fill", "red")
-    .attr("cx", d => d[0])
-    .attr("cy", d => d[1])
+    .attr("stroke", "gray")
   ;
 
   return svg.selectAll("circle.handle")
