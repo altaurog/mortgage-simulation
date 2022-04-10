@@ -20,5 +20,11 @@ export default createSlice({
         points: state.points.map(p => p.id === point.id ? point : p),
       };
     },
+    selectPoint(state, action) {
+      return {
+        ...state,
+        selection: action.payload,
+      };
+    }
   },
 });

@@ -8,7 +8,7 @@ function render(store, svg) {
   return update(svg, state.ir);
 }
 
-function update(svg, { points }) {
+function update(svg, { points, selection }) {
   const data = Array.from(points);
   data.sort((a, b) => a.viewX - b.viewX);
   const line = d3.line(d => d.viewX, d => d.viewY)
@@ -33,15 +33,20 @@ function update(svg, { points }) {
     .attr("r", 2)
     .attr("fill", "red")
     .attr("cx", d => d[0])
-    .attr("cy", d => d[1]);
+    .attr("cy", d => d[1])
+  ;
 
   return svg.selectAll("circle.handle")
     .data(points, d => d.id)
     .join("circle")
     .attr("class", "handle")
     .attr("r", 5)
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
     .attr("cx", d => d.viewX)
-    .attr("cy", d => d.viewY);
+    .attr("cy", d => d.viewY)
+    .attr("fill", d => d.id === selection ? "lightblue" : "black")
+  ;
 }
 
 export default function ir(store, element) {
@@ -68,11 +73,16 @@ export default function ir(store, element) {
     store.dispatch(slice.actions.dragPoint(point));
   }
 
+  function dragStart(_, d) {
+    store.dispatch(slice.actions.selectPoint(d.id));
+  }
+
   const ir = () => render(store, plot);
   store.subscribe(ir);
   ir()
     .call(d3.drag()
       .on("drag", dragDrag)
+      .on("start", dragStart)
     );
 }
 
