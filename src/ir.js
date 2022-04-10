@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import * as scale from './scale';
+import { interpolate } from './interpolate';
 
 function render(store, svg) {
   const state = store.getState();
@@ -10,7 +11,7 @@ function update(svg, points) {
   const data = Array.from(points);
   data.sort((a, b) => a.viewX - b.viewX);
   const line = d3.line(d => d.viewX, d => d.viewY)
-    .curve(d3.curveMonotoneX);
+    .curve(d3.curveLinear);
 
   svg.selectAll("path")
     .data([data])
@@ -20,9 +21,23 @@ function update(svg, points) {
     .attr("stroke", "black")
   ;
 
-  return svg.selectAll("circle")
+  const interp = interpolate(
+    data,
+    d3.range(1, 30).map(scale.x),
+  );
+  svg.selectAll("circle.interp")
+    .data(interp)
+    .join("circle")
+    .attr("class", "interp")
+    .attr("r", 2)
+    .attr("fill", "red")
+    .attr("cx", d => d[0])
+    .attr("cy", d => d[1]);
+
+  return svg.selectAll("circle.handle")
     .data(points, d => d.id)
     .join("circle")
+    .attr("class", "handle")
     .attr("r", 5)
     .attr("cx", d => d.viewX)
     .attr("cy", d => d.viewY);
