@@ -9,13 +9,11 @@ function render(store, svg) {
 }
 
 function update(svg, { points, selection }) {
-  const data = Array.from(points);
-  data.sort((a, b) => a.viewX - b.viewX);
   const line = d3.line(d => d.viewX, d => d.viewY)
     .curve(d3.curveLinear);
 
   svg.selectAll("path")
-    .data([data])
+    .data([points])
     .join("path")
     .attr("d", line)
     .attr("fill", "none")
@@ -23,7 +21,7 @@ function update(svg, { points, selection }) {
   ;
 
   const interp = interpolate(
-    data,
+    points,
     d3.range(1, 30).map(scale.x),
   );
   svg.selectAll("circle.interp")
