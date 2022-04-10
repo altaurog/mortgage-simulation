@@ -1,13 +1,14 @@
 import * as d3 from 'd3';
 import * as scale from './scale';
 import { interpolate } from './interpolate';
+import slice from './reducers/ir';
 
 function render(store, svg) {
   const state = store.getState();
-  return update(svg, state);
+  return update(svg, state.ir);
 }
 
-function update(svg, points) {
+function update(svg, { points }) {
   const data = Array.from(points);
   data.sort((a, b) => a.viewX - b.viewX);
   const line = d3.line(d => d.viewX, d => d.viewY)
@@ -65,7 +66,7 @@ export default function ir(store, element) {
       const x = pin(d, Math.max(0, Math.min(event.x, scale.width)));
       const y = Math.max(0, Math.min(event.y, scale.height));
       const point = scale.viewPt(d.id, {x, y});
-      store.dispatch({type: 'point/drag', payload: point});
+      store.dispatch(slice.actions.dragPoint(point));
     }
   }
 

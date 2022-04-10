@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function Data() {
-  const points = useSelector(state => state);
+  const points = useSelector(state => state.ir.points);
 
   return (
     <div>
