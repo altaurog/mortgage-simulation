@@ -61,20 +61,19 @@ export default function ir(store, element) {
 
   svg.append('g').call(d3.axisLeft(scale.y));
 
-  function dragDrag() {
-    return (event, d) => {
-      const x = pin(d, Math.max(0, Math.min(event.x, scale.width)));
-      const y = Math.max(0, Math.min(event.y, scale.height));
-      const point = scale.viewPt(d.id, {x, y});
-      store.dispatch(slice.actions.dragPoint(point));
-    }
+  function dragDrag(event, d) {
+    const x = pin(d, Math.max(0, Math.min(event.x, scale.width)));
+    const y = Math.max(0, Math.min(event.y, scale.height));
+    const point = scale.viewPt(d.id, {x, y});
+    store.dispatch(slice.actions.dragPoint(point));
   }
 
   const ir = () => render(store, plot);
   store.subscribe(ir);
   ir()
     .call(d3.drag()
-    .on("drag", dragDrag(store)));
+      .on("drag", dragDrag)
+    );
 }
 
 function pin(d, x) {
