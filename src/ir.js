@@ -31,6 +31,8 @@ function update(svg, { points, selection }) {
     .join("circle")
     .attr("class", "interp")
     .attr("r", 2)
+    .attr("stroke", "black")
+    .attr("stroke-width", 0.5)
     .attr("fill", "red")
     .attr("cx", d => d[0])
     .attr("cy", d => d[1])
