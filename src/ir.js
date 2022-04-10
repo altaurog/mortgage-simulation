@@ -20,10 +20,9 @@ function update(svg, { points, selection }) {
     .attr("stroke", "black")
   ;
 
-  const interp = interpolate(
-    points,
-    d3.range(1, 30).map(scale.x),
-  );
+  const ix = d3.range(1, 30).map(scale.x)
+  const iy = interpolate(points, ix);
+  const interp = ix.map((v, i) => [v, iy[i]]);
   svg.selectAll("circle.interp")
     .data(interp)
     .join("circle")

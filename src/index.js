@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import ir from './ir';
+import payments from './payments';
 import store from './store';
 
 const reactContainer = document.getElementById('form');
@@ -14,5 +15,8 @@ root.render(
   </Provider>
 );
 
-const d3Container = document.getElementById('chart');
-ir(store, d3Container);
+const irContainer = document.getElementById('ir');
+ir(store, irContainer);
+
+const paymentsContainer = document.getElementById('payments');
+payments(store, paymentsContainer);

@@ -1,10 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import ir from './reducers/ir';
+import reducer from './reducers';
 
-export default configureStore({
-  reducer: {
-    ir: ir.reducer,
-  }
-});
-
-console.log(ir.actions);
+export default configureStore({ reducer });
