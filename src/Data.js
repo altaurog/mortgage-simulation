@@ -2,36 +2,16 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function Data() {
-  const points = useSelector(state => state.ir.points);
+  const payments = useSelector(state => state.mortgage);
+  const total = payments.reduce(
+    (sum, { monthlyPayment }) => sum + monthlyPayment * 12,
+    0
+  );
 
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>x</th>
-            <th>y</th>
-            <th>viewX</th>
-            <th>viewY</th>
-          </tr>
-        </thead>
-        <tbody>
-          {points.map(p => <Point key={p.id} point={p}/>)}
-        </tbody>
-      </table>
+      <b>Total:</b>
+      <span>{Number(Math.round(total)).toLocaleString()}</span>
     </div>
   );
 };
-
-function Point({ point }) {
-  return (
-    <tr>
-      <td>{point.id}</td>
-      <td>{point.x?.toFixed(2)}</td>
-      <td>{point.y?.toFixed(2)}</td>
-      <td>{point.viewX?.toFixed(2)}</td>
-      <td>{point.viewY?.toFixed(2)}</td>
-    </tr>
-  );
-}
