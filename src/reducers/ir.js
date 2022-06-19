@@ -21,9 +21,10 @@ export default createSlice({
       return { ...state, points };
     },
     selectPoint(state, action) {
+      const selected = state.selection === action.payload;
       return {
         ...state,
-        selection: action.payload,
+        selection: selected ? undefined : action.payload,
       };
     }
   },
