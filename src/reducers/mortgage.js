@@ -11,12 +11,12 @@ export default function(state, action) {
   };
 }
 
-function mortgage({ ir }) {
+function mortgage({ ir, loanParams }) {
   const rates = interpolate(
     ir.points,
     d3.range(0, 30).map(scale.x),
   );
-  return calculatePayments(800000, rates.map(scale.y.invert));
+  return calculatePayments(loanParams.loanAmount, rates.map(scale.y.invert));
 }
 
 function calculatePayments(
