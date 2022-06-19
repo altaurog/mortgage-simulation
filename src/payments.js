@@ -51,4 +51,5 @@ export default function payments(store, element) {
 
   const _payments = () => render(store, svg);
   store.subscribe(_payments);
+  _payments();
 }

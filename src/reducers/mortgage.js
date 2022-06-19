@@ -5,16 +5,10 @@ import * as scale from '../scale';
 import irSlice from './ir';
 
 export default function(state, action) {
-  switch (action.type) {
-    case irSlice.actions.dragPoint.type:
-      return {
-        ...state,
-        mortgage: mortgage(state),
-      }
-      break;
-    default:
-      return state;
-  }
+  return {
+    ...state,
+    mortgage: mortgage(state),
+  };
 }
 
 function mortgage({ ir }) {
