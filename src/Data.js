@@ -7,7 +7,7 @@ export default function Data() {
   const payments = useSelector(state => state.mortgage);
   const dispatch = useDispatch();
   const total = payments.reduce(
-    (sum, { averageMonthlyPayment }) => sum + averageMonthlyPayment * 12,
+    (sum, { payment }) => sum + payment,
     0
   );
 

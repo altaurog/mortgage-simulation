@@ -3,9 +3,9 @@ import * as scale from '../scale';
 
 const points = [
   scale.pt(0, {x: 0, y: 1.6}),
-  scale.pt(2, {x: 10, y: 1.2}),
-  scale.pt(3, {x: 20, y: 6.5}),
-  scale.pt(1, {x: 30, y: 5.6}),
+  scale.pt(2, {x: 10*12, y: 1.2}),
+  scale.pt(3, {x: 20*12, y: 6.5}),
+  scale.pt(1, {x: 30*12, y: 5.6}),
 ];
 
 export default createSlice({

@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const xRange = 30;
+const xRange = 30 * 12;
 const yRange = 10;
 
 export const width = 600
