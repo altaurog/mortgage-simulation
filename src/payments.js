@@ -15,14 +15,15 @@ function update(svg, payments) {
 
   svg.select("#y-axis").call(d3.axisLeft(yScale));
 
-  svg.selectAll("rect")
-    .data(data)
-    .join("rect")
-    .attr("fill", "steelblue")
-    .attr("x", d => d[0])
-    .attr("y", d => d[1])
-    .attr("width", xWidth)
-    .attr("height", d => yZero - d[1])
+  const line = d3.line(d => d[0], d => d[1]).curve(d3.curveLinear);
+  svg.select("#plot")
+    .selectAll("path")
+    .data([data])
+    .join("path")
+    .attr("d", line)
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", "4")
+    .attr("fill", "none")
   ;
 }
 
