@@ -3,14 +3,14 @@ import * as scale from './scale';
 
 function update(svg, payments) {
   const yMax = payments.reduce(
-    (m, { monthlyPayment }) => Math.max(m, monthlyPayment),
+    (m, { averageMonthlyPayment }) => Math.max(m, averageMonthlyPayment),
     0,
   );
   const yScale = scale.y.copy().domain([0, yMax]).nice();
   const yZero = yScale(0);
   const xWidth = scale.x(0.9);
   const data = payments.map(
-    ({ monthlyPayment }, i) => [scale.x(i + 0.05), yScale(monthlyPayment)]
+    ({ averageMonthlyPayment }, i) => [scale.x(i + 0.05), yScale(averageMonthlyPayment)]
   );
 
   svg.select("#y-axis").call(d3.axisLeft(yScale));

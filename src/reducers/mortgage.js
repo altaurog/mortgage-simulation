@@ -20,38 +20,34 @@ function mortgage({ ir, loanParams }) {
 }
 
 function calculatePayments(
-  initial,
+  loanAmount,
   rates,
 ) {
-  let balance = initial;
-  return rates.map((r, y) => {
-    const monthlyRatePct = r / 1200;
-    const years = rates.length - y;
-    const monthlyPayment =
-      monthlyRatePct === 0
-        ? balance / years / 12
-        : (balance * monthlyRatePct) /
-          (1 - Math.pow((1 + monthlyRatePct), -years * 12));
-    let interestYearly = 0;
-    let partial;
-    for (let month = 1; month <= 12; month++) {
-      let interestMonth = balance * monthlyRatePct;
-      interestYearly += interestMonth;
-      balance -= (monthlyPayment - interestMonth);
+  const initialMonthlyRate = rates[0] / 1200;
+  const loanTerm = rates.length;
+  const initialMonthlyPayment =
+    initialMonthlyRate === 0
+    ? loanAmount / loanTerm / 12
+    : loanAmount * initialMonthlyRate /
+        (1 - Math.pow((1 + initialMonthlyRate), -loanTerm * 12));
 
-      if (balance <= 0) {
-        balance = 0;
-        if (partial === undefined && month !== 12) {
-          partial = month;
-        }
-      }
+  let principle = loanAmount;
+  return rates.map((r, y) => {
+    const monthlyRate = r / 1200;
+    let total = 0;
+    let interest = 0;
+    for (let month = 1; month <= 12; month++) {
+      let principlePayment = initialMonthlyPayment - principle * initialMonthlyRate;
+      let interestPayment = principle * monthlyRate;
+      total += interestPayment + principlePayment;
+      interest += interestPayment;
+      principle -= principlePayment;
     }
     return {
-      monthlyPayment,
-      interestYearly,
-      years,
-      balance,
-      partial,
+      averageMonthlyPayment: total / 12,
+      interest,
+      loanTerm,
+      principle,
     };
   });
 }
