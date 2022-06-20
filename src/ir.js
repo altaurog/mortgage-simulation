@@ -46,7 +46,7 @@ export default function ir(store, element) {
 
   svg.append('g')
     .attr('transform', `translate(0,${scale.height})`)
-    .call(d3.axisBottom(scale.x));
+    .call(d3.axisBottom(scale.years));
 
   svg.append('g').call(d3.axisLeft(scale.y));
 

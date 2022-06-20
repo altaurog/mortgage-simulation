@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 
-const xRange = 30 * 12;
+const xYears = 30
+const xRange = xYears * 12;
 const yRange = 10;
 
 export const width = 600
@@ -19,6 +20,8 @@ export const viewBox = `${xOrigin} ${yOrigin} ${xView} ${yView}`;
 export const x = d3.scaleLinear()
   .range([0, width])
   .domain([0, xRange]);
+
+export const years = x.copy().domain([0, xYears]);
 
 export const y = d3.scaleLinear()
   .range([height, 0])

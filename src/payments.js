@@ -46,7 +46,7 @@ export default function payments(store, element) {
   svg.append('g')
     .attr('id', 'x-axis')
     .attr('transform', `translate(0,${scale.height})`)
-    .call(d3.axisBottom(scale.x));
+    .call(d3.axisBottom(scale.years));
 
   svg.append('g').attr('id', 'y-axis');
 
