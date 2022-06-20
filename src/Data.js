@@ -29,7 +29,7 @@ export default function Data() {
             onChange={onChange}
         />
       </form>
-      <b>Total Cost:</b>
+      <b>Total Cost: </b>
       <span>{Number(Math.round(total)).toLocaleString()}</span>
     </div>
   );
